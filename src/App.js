@@ -1,17 +1,21 @@
-import React from 'react';
+import React from "react";
 
-import Card from './components/Card';
-import './App.css';
+import Lane from "./components/Lane";
+import "./App.css";
+
+const tasks = [
+  { title: 'Wash car' },
+  { title: 'Do laundry' },
+  { title: 'Clean room' },
+  { title: 'Get groceries' },
+];
 
 const App = () => {
   return (
     <div className="App">
-      <Card title="Wash car" />
-      <Card title="Do laundry" />
-      <Card title="Clean room" />
-      <Card title="Get groceries" />
+      <Lane tasks={tasks} title="To Do" />
     </div>
   );
-}
+};
 
 export default App;
