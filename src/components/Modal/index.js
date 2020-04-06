@@ -5,7 +5,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MoveIcon from "@material-ui/icons/TrendingFlat";
-import { db } from "../../firebase";
 
 import { LANE_TYPE } from "../../utils/enums";
 
@@ -35,8 +34,7 @@ const Modal = (props) => {
 
   const [modalStyle] = React.useState(getModalStyle);
   const [title, setTitle] = React.useState(data.title);
-
-  console.log("here", title);
+  const [error, setError] = React.useState(false);
 
   const handleRemove = () => {
     onRemove(data.id);
@@ -45,8 +43,13 @@ const Modal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dbRef.child(data.id).update({ title });
-    onClose();
+    if (title === "") {
+      setError(true);
+    } else {
+      dbRef.child(data.id).update({ title });
+      setError(false);
+      onClose();
+    }
   };
 
   const handleChange = (e) => {
@@ -59,6 +62,7 @@ const Modal = (props) => {
         label="Update Task"
         onChange={handleChange}
         value={title}
+        error={error}
         placeholder="Feed the dog"
       />
     </form>
