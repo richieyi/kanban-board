@@ -1,5 +1,5 @@
 import React from "react";
-import { db } from '../../firebase';
+import { db } from "../../firebase";
 
 import { LANE_TYPE } from "../../utils/enums";
 import Card from "../Card";
@@ -7,16 +7,23 @@ import styles from "./lane.module.css";
 
 const Lane = (props) => {
   const [newCard, setNewCard] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [laneData, setLaneData] = React.useState({});
+
   const { data } = props;
-  const ref = db.ref('/todos')
+  const ref = db.ref(`/${data.type}`);
 
   React.useEffect(() => {
-    console.log('uhhh', process.env.REACT_APP_TEST)
-    console.log('uhhh2', process.env.REACT_APP_FIREBASE_DATABASE_URL)
-    ref.on('value', snapshot => {
-      console.log('here123', snapshot.val())
-    })
-  }, [ref])
+    ref.on("value", (snapshot) => {
+      // console.log("val", snapshot.val());
+      setLaneData(snapshot.val())
+    });
+  }, []);
+  // console.log('lane data', laneData);
+
+  // const handleRemove = () => {
+  //   ref.child("-M4C8oDgSeYo6jL5WgiG").remove();
+  // };
 
   const renderTitle = () => {
     let title;
@@ -31,6 +38,7 @@ const Lane = (props) => {
         title = "Done";
         break;
       default:
+        title = "N/A";
         break;
     }
 
@@ -38,25 +46,32 @@ const Lane = (props) => {
   };
 
   const renderTasks = () => {
-    return data.tasks.map((task) => (
-      <Card title={task.title} key={task.title} />
-    ));
+    const arr = [];
+
+    for (let key in laneData) {
+      arr.push(<Card key={key} title={laneData[key].title} />);
+    }
+
+    return arr.map(item => item)
   };
 
   const handleNewCard = () => {
-    ref.push().set(newCard);
-    setNewCard('');
+    ref.push().set({ title: newCard });
+    setNewCard("");
   };
 
   const handleOnChange = (e) => {
     setNewCard(e.target.value);
   };
 
+  if (loading) return <div>Loading...</div>
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>{renderTitle()}</div>
       <input onChange={handleOnChange} value={newCard} />
       <button onClick={handleNewCard}>Add</button>
+      {/* <button onClick={handleRemove}>Remove</button> */}
       {renderTasks()}
     </div>
   );

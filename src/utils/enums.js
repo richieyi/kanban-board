@@ -1,5 +1,5 @@
 export const LANE_TYPE = {
-    TO_DO: 1,
-    IN_PROGRESS: 2,
-    DONE: 3,
+    TO_DO: 'to-do',
+    IN_PROGRESS: 'in-progress',
+    DONE: 'done',
 }
