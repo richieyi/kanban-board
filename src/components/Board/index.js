@@ -11,7 +11,7 @@ const Board = () => {
   const dbRef = db.ref(`/board`);
 
   React.useEffect(() => {
-    dbRef.on("value", snapshot => {
+    dbRef.on("value", (snapshot) => {
       setLoading(false);
       setData(snapshot.val());
     });
@@ -19,11 +19,25 @@ const Board = () => {
 
   if (loading) return <div />;
 
+  const filterData = (type) => {
+    const arr = [];
+    for (let key in data) {
+      if (data[key].type === type) {
+        arr.push({ id: key, title: data[key].title, type: data[key].type });
+      }
+    }
+
+    return arr;
+  };
+
   return (
     <div className={styles.container}>
-      <Lane type={LANE_TYPE.TO_DO} data={data[LANE_TYPE.TO_DO]} />
-      <Lane type={LANE_TYPE.IN_PROGRESS} data={data[LANE_TYPE.IN_PROGRESS]} />
-      <Lane type={LANE_TYPE.DONE} data={data[LANE_TYPE.DONE]} />
+      <Lane type={LANE_TYPE.TO_DO} data={filterData(LANE_TYPE.TO_DO)} />
+      <Lane
+        type={LANE_TYPE.IN_PROGRESS}
+        data={filterData(LANE_TYPE.IN_PROGRESS)}
+      />
+      <Lane type={LANE_TYPE.DONE} data={filterData(LANE_TYPE.DONE)} />
     </div>
   );
 };

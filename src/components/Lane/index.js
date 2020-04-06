@@ -12,7 +12,7 @@ const Lane = (props) => {
   const [modalData, setModalData] = React.useState(null);
 
   const { type, data } = props;
-  const dbRef = db.ref(`/board/${type}`);
+  const dbRef = db.ref("/board");
 
   const handleRemove = (id) => {
     dbRef.child(id).remove();
@@ -20,19 +20,9 @@ const Lane = (props) => {
   };
 
   const renderTasks = () => {
-    const arr = [];
-
-    for (let key in data) {
-      arr.push(
-        <Card
-          key={key}
-          item={{ id: key, title: data[key].title, type }}
-          handleModalOpen={handleModalOpen}
-        />
-      );
-    }
-
-    return arr.map((item) => item);
+    return data.map((item) => (
+      <Card key={item.id} item={item} handleModalOpen={handleModalOpen} />
+    ));
   };
 
   const handleModalOpen = (item) => {
@@ -63,7 +53,7 @@ const Lane = (props) => {
         <h3>{renderTitle(type)}</h3>
       </div>
       {open && renderModal()}
-      <CardForm dbRef={dbRef} />
+      <CardForm dbRef={dbRef} type={type} />
       {renderTasks()}
     </div>
   );

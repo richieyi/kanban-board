@@ -1,11 +1,12 @@
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
+import { db } from "../../firebase";
 
 import styles from "./card-form.module.css";
 
 const CardForm = (props) => {
-  const { dbRef } = props;
+  const { dbRef, type } = props;
 
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(false);
@@ -14,7 +15,7 @@ const CardForm = (props) => {
     e.preventDefault();
 
     if (value !== "") {
-      dbRef.push().set({ title: value });
+      dbRef.push().set({ title: value, type });
       setValue("");
       setError(false);
     } else {
