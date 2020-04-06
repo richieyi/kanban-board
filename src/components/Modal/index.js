@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MuiModal from "@material-ui/core/Modal";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const getModalStyle = () => {
   return {
@@ -23,12 +24,21 @@ const useStyles = makeStyles((theme) => ({
 const Modal = (props) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
-  const { children, open, onClose } = props;
+  const { data, onRemove, open, onClose } = props;
+
+  const handleRemove = () => {
+    onRemove(data.id);
+  };
 
   return (
     <MuiModal open={open} onClose={onClose}>
       <div style={modalStyle} className={classes.paper}>
-        {children}
+        <div>
+          <span>Task: {data.title}</span>
+          <div>
+            <DeleteIcon onClick={handleRemove} />
+          </div>
+        </div>
       </div>
     </MuiModal>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 import { renderTitle } from "./laneUtils";
 import { db } from "../../firebase";
@@ -47,7 +46,9 @@ const Lane = (props) => {
     setModalData(null);
   };
 
-  const handleNewCard = () => {
+  const handleNewCard = (e) => {
+    e.preventDefault();
+
     dbRef.push().set({ title: newCard });
     setNewCard("");
   };
@@ -58,14 +59,12 @@ const Lane = (props) => {
 
   const renderModal = () => {
     return (
-      <Modal onClose={handleModalClose} open={open}>
-        <div>
-          <span>Task: {modalData.title}</span>
-          <div>
-            <DeleteIcon onClick={() => handleRemove(modalData.id)} />
-          </div>
-        </div>
-      </Modal>
+      <Modal
+        open={open}
+        data={modalData}
+        onRemove={handleRemove}
+        onClose={handleModalClose}
+      />
     );
   };
 
@@ -75,8 +74,10 @@ const Lane = (props) => {
         <h3>{renderTitle(type)}</h3>
       </div>
       {open && renderModal()}
-      <input onChange={handleOnChange} value={newCard} />
-      <button onClick={handleNewCard}>Add</button>
+      <form onSubmit={handleNewCard}>
+        <input onChange={handleOnChange} value={newCard} />
+        <button onClick={handleNewCard}>Add</button>
+      </form>
       {renderTasks()}
     </div>
   );
