@@ -1,16 +1,17 @@
 .container {
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-    background: lightsteelblue;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  background: lightsteelblue;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
 .title {
-    text-align: left;
+  text-align: left;
 }
 
 .title h3 {
-    margin: 0;
+  margin: 10px 5px;
+  font-size: 16px;
 }
