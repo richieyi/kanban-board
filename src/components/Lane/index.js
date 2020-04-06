@@ -7,14 +7,14 @@ import Card from "../Card";
 import Modal from "../Modal";
 import styles from "./lane.module.css";
 
-const Lane = props => {
+const Lane = (props) => {
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = React.useState(null);
 
   const { type, data } = props;
   const dbRef = db.ref(`/board/${type}`);
 
-  const handleRemove = id => {
+  const handleRemove = (id) => {
     dbRef.child(id).remove();
     handleModalClose();
   };
@@ -26,16 +26,16 @@ const Lane = props => {
       arr.push(
         <Card
           key={key}
-          item={{ id: key, title: data[key].title }}
+          item={{ id: key, title: data[key].title, type }}
           handleModalOpen={handleModalOpen}
         />
       );
     }
 
-    return arr.map(item => item);
+    return arr.map((item) => item);
   };
 
-  const handleModalOpen = item => {
+  const handleModalOpen = (item) => {
     setOpen(true);
     setModalData(item);
   };
