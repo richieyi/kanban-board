@@ -5,6 +5,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MoveIcon from "@material-ui/icons/TrendingFlat";
+import { db } from "../../firebase";
 
 import { LANE_TYPE } from "../../utils/enums";
 
@@ -44,7 +45,8 @@ const Modal = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dbRef.update(data.key).update({ title });
+    dbRef.child(data.id).update({ title });
+    onClose();
   };
 
   const handleChange = (e) => {
@@ -62,10 +64,10 @@ const Modal = (props) => {
     </form>
   );
 
-  // const handleMove = () => {
-  //  WIP: Data structure
-  // not ideal to delete and create new
-  // };
+  const handleMove = (newType) => {
+    dbRef.child(data.id).update({ type: newType });
+    onClose();
+  };
 
   const renderNextAction = () => {
     let button;
@@ -76,7 +78,7 @@ const Modal = (props) => {
             variant="contained"
             color="primary"
             startIcon={<MoveIcon />}
-            onClick={() => {}}
+            onClick={() => handleMove(LANE_TYPE.IN_PROGRESS)}
           >
             In Progress
           </Button>
@@ -88,7 +90,7 @@ const Modal = (props) => {
             variant="contained"
             color="primary"
             startIcon={<MoveIcon />}
-            onClick={() => {}}
+            onClick={() => handleMove(LANE_TYPE.DONE)}
           >
             Done
           </Button>
@@ -106,7 +108,7 @@ const Modal = (props) => {
       <div style={modalStyle} className={classes.paper}>
         <div className={styles.container}>{renderInput()}</div>
         <div className={styles.actionButtons}>
-          {/* {renderNextAction()} */}
+          {renderNextAction()}
           <Button
             variant="contained"
             color="secondary"
