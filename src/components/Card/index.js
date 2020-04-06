@@ -3,14 +3,15 @@ import React from "react";
 import styles from "./card.module.css";
 
 const Card = (props) => {
-  const { title } = props;
+  const { title, handleModalOpen } = props;
 
-  const handleRemove = () => {
-    props.handleRemove(props.id);
+  const handleOpen = () => {
+    // props.handleRemove(props.id);
+    handleModalOpen(title);
   };
 
   return (
-    <div className={styles.container} onClick={handleRemove}>
+    <div className={styles.container} onClick={handleOpen}>
       {title}
     </div>
   );

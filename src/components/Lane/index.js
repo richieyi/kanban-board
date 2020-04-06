@@ -3,26 +3,30 @@ import { db } from "../../firebase";
 
 import { LANE_TYPE } from "../../utils/enums";
 import Card from "../Card";
+import Modal from "../Modal";
 import styles from "./lane.module.css";
 
 const Lane = (props) => {
   const [newCard, setNewCard] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-  const [laneData, setLaneData] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [modalData, setModalData] = React.useState(null);
+  const [data, setData] = React.useState({});
 
-  const { data } = props;
-  const ref = db.ref(`/${data.type}`);
+  const { type } = props;
+  const dbRef = db.ref(`/${type}`);
 
   React.useEffect(() => {
-    ref.on("value", (snapshot) => {
-      setLaneData(snapshot.val());
+    dbRef.on("value", (snapshot) => {
+      setLoading(false);
+      setData(snapshot.val());
+      console.log('get data')
     });
   }, []);
-  // console.log('lane data', laneData);
 
   const renderTitle = () => {
     let title;
-    switch (data.type) {
+    switch (type) {
       case LANE_TYPE.TO_DO:
         title = "To Do";
         break;
@@ -41,19 +45,21 @@ const Lane = (props) => {
   };
 
   const handleRemove = (id) => {
-    ref.child(id).remove();
+    console.log(`removing ${id}`)
+    dbRef.child(id).remove();
   };
 
   const renderTasks = () => {
     const arr = [];
 
-    for (let key in laneData) {
+    for (let key in data) {
       arr.push(
         <Card
           id={key}
           key={key}
-          title={laneData[key].title}
-          handleRemove={handleRemove}
+          title={data[key].title}
+          // handleRemove={handleRemove}
+          handleModalOpen={handleModalOpen}
         />
       );
     }
@@ -61,8 +67,18 @@ const Lane = (props) => {
     return arr.map((item) => item);
   };
 
+  const handleModalOpen = item => {
+    setOpen(true);
+    setModalData(item);
+  }
+
+  const handleModalClose = () => {
+    setOpen(false);
+    setModalData(null)
+  }
+
   const handleNewCard = () => {
-    ref.push().set({ title: newCard });
+    dbRef.push().set({ title: newCard });
     setNewCard("");
   };
 
@@ -70,14 +86,14 @@ const Lane = (props) => {
     setNewCard(e.target.value);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div />
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>{renderTitle()}</div>
+      <Modal title={modalData} onClose={handleModalClose} open={open} />
       <input onChange={handleOnChange} value={newCard} />
       <button onClick={handleNewCard}>Add</button>
-      {/* <button onClick={handleRemove}>Remove</button> */}
       {renderTasks()}
     </div>
   );
