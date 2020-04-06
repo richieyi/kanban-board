@@ -9,21 +9,11 @@ import styles from "./lane.module.css";
 
 const Lane = (props) => {
   const [newCard, setNewCard] = React.useState("");
-  const [loading, setLoading] = React.useState(true);
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = React.useState(null);
-  const [data, setData] = React.useState({});
 
-  const { type } = props;
-  const dbRef = db.ref(`/${type}`);
-
-  React.useEffect(() => {
-    dbRef.on("value", (snapshot) => {
-      console.log("retrieved data");
-      setLoading(false);
-      setData(snapshot.val());
-    });
-  }, []);
+  const { type, data } = props;
+  const dbRef = db.ref(`/board/${type}`);
 
   const handleRemove = (id) => {
     console.log(`removing ${id}`);
@@ -78,8 +68,6 @@ const Lane = (props) => {
       </Modal>
     );
   };
-
-  if (loading) return <div />;
 
   return (
     <div className={styles.container}>
