@@ -3,11 +3,11 @@
   border-radius: 4px;
   padding: 10px 15px;
   margin: 10px 0px;
-  background: lightgrey;
   font-size: 12px;
+  background: var(--secondary);
   text-align: left;
 }
 
 .container:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
