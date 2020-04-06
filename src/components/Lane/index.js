@@ -52,6 +52,7 @@ const Lane = (props) => {
         data={modalData}
         onRemove={handleRemove}
         onClose={handleModalClose}
+        dbRef={dbRef}
       />
     );
   };

@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MuiModal from "@material-ui/core/Modal";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import MoveIcon from "@material-ui/icons/TrendingFlat";
 
 import { LANE_TYPE } from "../../utils/enums";
@@ -28,14 +29,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Modal = (props) => {
-  const { dbRef } = props;
   const classes = useStyles();
+  const { dbRef, data, onRemove, open, onClose } = props;
+
   const [modalStyle] = React.useState(getModalStyle);
-  const { data, onRemove, open, onClose } = props;
+  const [title, setTitle] = React.useState(data.title);
+
+  console.log("here", title);
 
   const handleRemove = () => {
     onRemove(data.id);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dbRef.update(data.key).update({ title });
+  };
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const renderInput = () => (
+    <form onSubmit={handleSubmit} className={styles.container}>
+      <TextField
+        label="Update Task"
+        onChange={handleChange}
+        value={title}
+        placeholder="Feed the dog"
+      />
+    </form>
+  );
 
   // const handleMove = () => {
   //  WIP: Data structure
@@ -79,9 +104,7 @@ const Modal = (props) => {
   return (
     <MuiModal open={open} onClose={onClose}>
       <div style={modalStyle} className={classes.paper}>
-        <div className={styles.container}>
-          <span>Task: {data.title}</span>
-        </div>
+        <div className={styles.container}>{renderInput()}</div>
         <div className={styles.actionButtons}>
           {/* {renderNextAction()} */}
           <Button
