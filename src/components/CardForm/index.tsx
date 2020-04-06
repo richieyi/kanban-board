@@ -1,16 +1,21 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
 
 import styles from "./card-form.module.css";
 
-const CardForm = (props) => {
+type Props = {
+  dbRef: any;
+  type: String;
+}
+
+const CardForm = (props: Props) => {
   const { dbRef, type } = props;
 
   const [value, setValue] = React.useState("");
   const [error, setError] = React.useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (value !== "") {
@@ -22,7 +27,8 @@ const CardForm = (props) => {
     }
   };
 
-  const handleChange = (e) => {
+  // Type WIP
+  const handleChange = (e: any) => {
     setValue(e.target.value);
   };
 

@@ -5,6 +5,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MoveIcon from "@material-ui/icons/TrendingFlat";
+import { Item } from 'components/Card';
 
 import { LANE_TYPE } from "utils/enums";
 
@@ -28,7 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Modal = (props) => {
+type Props = {
+  onRemove: (id: string) => void; 
+  onClose: () => void; 
+  open: boolean;
+  data: any; // Type WIP
+  dbRef: any; // Type WIP
+}
+
+const Modal = (props: Props) => {
   const classes = useStyles();
   const { dbRef, data, onRemove, open, onClose } = props;
 
@@ -40,7 +49,7 @@ const Modal = (props) => {
     onRemove(data.id);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (title === "") {
@@ -52,8 +61,9 @@ const Modal = (props) => {
     }
   };
 
-  const handleChange = (e) => {
-    setTitle(e.target.value);
+  // Type WIP
+  const handleChange = (e: any) => {
+    setTitle(e.currentTarget.value);
   };
 
   const renderInput = () => (
@@ -68,7 +78,7 @@ const Modal = (props) => {
     </form>
   );
 
-  const handleMove = (newType) => {
+  const handleMove = (newType: string) => {
     dbRef.child(data.id).update({ type: newType });
     onClose();
   };

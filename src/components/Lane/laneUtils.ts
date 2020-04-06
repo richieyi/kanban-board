@@ -1,6 +1,6 @@
 import { LANE_TYPE } from "../../utils/enums";
 
-export const renderTitle = (type) => {
+export const renderTitle = (type: string) => {
   let title;
   switch (type) {
     case LANE_TYPE.TO_DO:

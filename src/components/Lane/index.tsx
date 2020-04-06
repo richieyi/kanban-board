@@ -1,31 +1,37 @@
 import React from "react";
 import CardForm from "components/CardForm";
-import Card from "components/Card";
+import Card, { Item} from "components/Card";
 import Modal from "components/Modal";
 
 import { db } from "../../firebase";
 import { renderTitle } from "./laneUtils";
 import styles from "./lane.module.css";
 
-const Lane = (props) => {
+type Props = {
+  type: string;
+  data: Array<Item>;
+}
+
+const Lane = (props: Props) => {
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = React.useState(null);
 
   const { type, data } = props;
   const dbRef = db.ref("/board");
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     dbRef.child(id).remove();
     handleModalClose();
   };
 
   const renderTasks = () => {
-    return data.map((item) => (
+    return data.map((item: Item) => (
       <Card key={item.id} item={item} handleModalOpen={handleModalOpen} />
     ));
   };
 
-  const handleModalOpen = (item) => {
+  // Type WIP
+  const handleModalOpen = (item: any) => {
     setOpen(true);
     setModalData(item);
   };

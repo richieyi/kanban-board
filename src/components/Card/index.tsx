@@ -2,7 +2,18 @@ import React from "react";
 
 import styles from "./card.module.css";
 
-const Card = props => {
+export interface Item {
+  id: string;
+  title: string;
+  type: string;
+}
+
+type Props = {
+  handleModalOpen: (item: Item) => void; 
+  item: Item;
+}
+
+const Card = (props: Props) => {
   const { item, handleModalOpen } = props;
 
   const handleOpen = () => {
