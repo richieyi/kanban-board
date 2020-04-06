@@ -1,13 +1,13 @@
 import React from "react";
 
 import { renderTitle } from "./laneUtils";
+import CardForm from '../CardForm';
 import { db } from "../../firebase";
 import Card from "../Card";
 import Modal from "../Modal";
 import styles from "./lane.module.css";
 
 const Lane = (props) => {
-  const [newCard, setNewCard] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = React.useState(null);
 
@@ -46,17 +46,6 @@ const Lane = (props) => {
     setModalData(null);
   };
 
-  const handleNewCard = (e) => {
-    e.preventDefault();
-
-    dbRef.push().set({ title: newCard });
-    setNewCard("");
-  };
-
-  const handleOnChange = (e) => {
-    setNewCard(e.target.value);
-  };
-
   const renderModal = () => {
     return (
       <Modal
@@ -74,10 +63,7 @@ const Lane = (props) => {
         <h3>{renderTitle(type)}</h3>
       </div>
       {open && renderModal()}
-      <form onSubmit={handleNewCard}>
-        <input onChange={handleOnChange} value={newCard} />
-        <button onClick={handleNewCard}>Add</button>
-      </form>
+      <CardForm dbRef={dbRef} />
       {renderTasks()}
     </div>
   );

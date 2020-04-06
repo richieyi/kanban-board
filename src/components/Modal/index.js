@@ -2,6 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import MuiModal from "@material-ui/core/Modal";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "@material-ui/core/Button";
+
+import styles from "./modal.module.css";
 
 const getModalStyle = () => {
   return {
@@ -33,11 +36,18 @@ const Modal = (props) => {
   return (
     <MuiModal open={open} onClose={onClose}>
       <div style={modalStyle} className={classes.paper}>
-        <div>
+        <div className={styles.container}>
           <span>Task: {data.title}</span>
-          <div>
-            <DeleteIcon onClick={handleRemove} />
-          </div>
+        </div>
+        <div>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<DeleteIcon />}
+            onClick={handleRemove}
+          >
+            Delete
+          </Button>
         </div>
       </div>
     </MuiModal>

@@ -13,6 +13,4 @@ const config = {
 
 firebase.initializeApp(config);
 
-// export const firebase;
 export const db = firebase.database()
-// export const todosRef = databaseRef.child("todos")
