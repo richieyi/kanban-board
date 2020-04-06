@@ -8,12 +8,18 @@ const CardForm = (props) => {
   const { dbRef } = props;
 
   const [value, setValue] = React.useState("");
+  const [error, setError] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dbRef.push().set({ title: value });
-    setValue("");
+    if (value !== "") {
+      dbRef.push().set({ title: value });
+      setValue("");
+      setError(false);
+    } else {
+      setError(true);
+    }
   };
 
   const handleChange = (e) => {
@@ -26,6 +32,7 @@ const CardForm = (props) => {
         label="New Task"
         onChange={handleChange}
         value={value}
+        error={error}
         placeholder="Feed the dog"
       />
       <AddIcon onClick={handleSubmit} className={styles.icon} />
