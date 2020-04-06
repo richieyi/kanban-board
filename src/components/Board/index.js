@@ -1,8 +1,8 @@
 import React from "react";
 
 import { db } from "../../firebase";
-import { LANE_TYPE } from "../../utils/enums";
-import Lane from "../Lane";
+import { LANE_TYPE } from "utils/enums";
+import Lane from "components/Lane";
 import styles from "./board.module.css";
 
 const Board = () => {

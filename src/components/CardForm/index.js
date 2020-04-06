@@ -1,7 +1,6 @@
 import React from "react";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
-import { db } from "../../firebase";
 
 import styles from "./card-form.module.css";
 

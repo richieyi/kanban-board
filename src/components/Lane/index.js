@@ -1,10 +1,10 @@
 import React from "react";
+import CardForm from "components/CardForm";
+import Card from "components/Card";
+import Modal from "components/Modal";
 
-import { renderTitle } from "./laneUtils";
-import CardForm from "../CardForm";
 import { db } from "../../firebase";
-import Card from "../Card";
-import Modal from "../Modal";
+import { renderTitle } from "./laneUtils";
 import styles from "./lane.module.css";
 
 const Lane = (props) => {

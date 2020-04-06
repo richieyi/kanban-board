@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import MoveIcon from "@material-ui/icons/TrendingFlat";
 
-import { LANE_TYPE } from "../../utils/enums";
+import { LANE_TYPE } from "utils/enums";
 
 import styles from "./modal.module.css";
 
