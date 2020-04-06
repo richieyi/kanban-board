@@ -15,15 +15,10 @@ const Lane = (props) => {
 
   React.useEffect(() => {
     ref.on("value", (snapshot) => {
-      // console.log("val", snapshot.val());
-      setLaneData(snapshot.val())
+      setLaneData(snapshot.val());
     });
   }, []);
   // console.log('lane data', laneData);
-
-  // const handleRemove = () => {
-  //   ref.child("-M4C8oDgSeYo6jL5WgiG").remove();
-  // };
 
   const renderTitle = () => {
     let title;
@@ -45,14 +40,25 @@ const Lane = (props) => {
     return <h3>{title}</h3>;
   };
 
+  const handleRemove = (id) => {
+    ref.child(id).remove();
+  };
+
   const renderTasks = () => {
     const arr = [];
 
     for (let key in laneData) {
-      arr.push(<Card key={key} title={laneData[key].title} />);
+      arr.push(
+        <Card
+          id={key}
+          key={key}
+          title={laneData[key].title}
+          handleRemove={handleRemove}
+        />
+      );
     }
 
-    return arr.map(item => item)
+    return arr.map((item) => item);
   };
 
   const handleNewCard = () => {
@@ -64,7 +70,7 @@ const Lane = (props) => {
     setNewCard(e.target.value);
   };
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className={styles.container}>

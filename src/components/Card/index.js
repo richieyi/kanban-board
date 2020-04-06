@@ -1,13 +1,19 @@
-import React from 'react';
+import React from "react";
 
-import styles from './card.module.css';
+import styles from "./card.module.css";
 
-const Card = props => {
-    const { title } = props;
+const Card = (props) => {
+  const { title } = props;
 
-    return (
-        <div className={styles.container}>{title}</div>
-    )
-}
+  const handleRemove = () => {
+    props.handleRemove(props.id);
+  };
+
+  return (
+    <div className={styles.container} onClick={handleRemove}>
+      {title}
+    </div>
+  );
+};
 
 export default Card;
