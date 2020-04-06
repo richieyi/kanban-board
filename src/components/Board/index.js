@@ -11,8 +11,7 @@ const Board = () => {
   const dbRef = db.ref(`/board`);
 
   React.useEffect(() => {
-    dbRef.on("value", (snapshot) => {
-      console.log("retrieved data");
+    dbRef.on("value", snapshot => {
       setLoading(false);
       setData(snapshot.val());
     });
