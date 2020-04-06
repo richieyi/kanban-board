@@ -1,6 +1,7 @@
 import React from "react";
 
 import { LANE_TYPE } from "../../utils/enums";
+// import { todosRef } from '../../firebase';
 import Lane from "../Lane";
 import styles from "./board.module.css";
 
@@ -29,6 +30,11 @@ const doneTasks = {
 };
 
 const Board = (props) => {
+    console.log('here', props)
+    // React.useEffect(() => {
+    //     todosRef().then(res => console.log(res))
+    // }, [])
+
   return (
     <div className={styles.container}>
       <Lane data={toDoTasks} />

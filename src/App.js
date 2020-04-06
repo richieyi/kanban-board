@@ -4,7 +4,8 @@ import Board from './components/Board';
 import "./App.css";
 
 
-const App = () => {
+const App = props => {
+  console.log(props)
   return (
     <div className="App">
       <Board />
