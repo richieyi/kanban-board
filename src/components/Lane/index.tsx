@@ -13,8 +13,8 @@ interface Props {
 }
 
 const Lane = (props: Props): JSX.Element => {
-  const [open, setOpen] = React.useState(false);
-  const [modalData, setModalData] = React.useState(null);
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [modalData, setModalData] = React.useState<Item | null>(null);
 
   const { type, data } = props;
   const dbRef = db.ref('/board');
@@ -30,8 +30,7 @@ const Lane = (props: Props): JSX.Element => {
     ));
   };
 
-  // Type WIP
-  const handleModalOpen = (item: any) => {
+  const handleModalOpen = (item: Item): void => {
     setOpen(true);
     setModalData(item);
   };

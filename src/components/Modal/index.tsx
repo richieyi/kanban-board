@@ -5,13 +5,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MoveIcon from '@material-ui/icons/TrendingFlat';
-import { Item } from 'components/Card';
 
 import { LANE_TYPE } from 'utils/enums';
 
 import styles from './modal.module.css';
 
-const getModalStyle = () => {
+const getModalStyle = (): any => {
   return {
     top: `50%`,
     left: `50%`,
@@ -29,21 +28,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type Props = {
+interface Props {
   onRemove: (id: string) => void;
   onClose: () => void;
   open: boolean;
-  data: any; // Type WIP
-  dbRef: any; // Type WIP
-};
+  data: any;
+  dbRef: any;
+}
 
 const Modal = (props: Props): JSX.Element => {
   const classes = useStyles();
   const { dbRef, data, onRemove, open, onClose } = props;
 
-  const [modalStyle] = React.useState(getModalStyle);
-  const [title, setTitle] = React.useState(data.title);
-  const [error, setError] = React.useState(false);
+  const [modalStyle] = React.useState<any>(getModalStyle);
+  const [title, setTitle] = React.useState<string>(data.title);
+  const [error, setError] = React.useState<boolean>(false);
 
   const handleRemove = (): void => {
     onRemove(data.id);
@@ -61,9 +60,8 @@ const Modal = (props: Props): JSX.Element => {
     }
   };
 
-  // Type WIP
-  const handleChange = (e: any): void => {
-    setTitle(e.currentTarget.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setTitle(e.target.value);
   };
 
   const renderInput = () => (

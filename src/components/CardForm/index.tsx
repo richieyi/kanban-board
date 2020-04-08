@@ -12,10 +12,10 @@ interface Props {
 const CardForm = (props: Props): JSX.Element => {
   const { dbRef, type } = props;
 
-  const [value, setValue] = React.useState('');
-  const [error, setError] = React.useState(false);
+  const [value, setValue] = React.useState<string>('');
+  const [error, setError] = React.useState<boolean>(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
     if (value !== '') {
@@ -27,8 +27,7 @@ const CardForm = (props: Props): JSX.Element => {
     }
   };
 
-  // Type WIP
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
   };
 

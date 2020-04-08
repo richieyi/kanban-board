@@ -16,7 +16,7 @@ interface Props {
 const Card = (props: Props): JSX.Element => {
   const { item, handleModalOpen } = props;
 
-  const handleOpen = () => {
+  const handleOpen = (): void => {
     handleModalOpen(item);
   };
 
