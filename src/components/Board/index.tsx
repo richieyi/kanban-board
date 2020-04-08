@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import { db } from "../../firebase";
-import { LANE_TYPE } from "utils/enums";
-import Lane from "components/Lane";
-import styles from "./board.module.css";
+import { db } from '../../firebase';
+import { LANE_TYPE } from 'utils/enums';
+import { Item } from 'components/Card';
+import Lane from 'components/Lane';
+import styles from './board.module.css';
 
-const Board = () => {
-  const [loading, setLoading] = React.useState(true);
-  const [data, setData] = React.useState({});
+const Board = (): JSX.Element => {
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [data, setData] = React.useState<any>({});
   const dbRef = db.ref(`/board`);
 
   React.useEffect(() => {
-    dbRef.on("value", (snapshot) => {
+    dbRef.on('value', (snapshot) => {
       setLoading(false);
       setData(snapshot.val());
     });
@@ -19,7 +20,7 @@ const Board = () => {
 
   if (loading) return <div />;
 
-  const filterData = (type) => {
+  const filterData = (type: string): Item[] => {
     const arr = [];
     for (let key in data) {
       if (data[key].type === type) {
