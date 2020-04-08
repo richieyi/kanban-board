@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./card.module.css";
+import styles from './card.module.css';
 
 export interface Item {
   id: string;
@@ -8,12 +8,12 @@ export interface Item {
   type: string;
 }
 
-type Props = {
-  handleModalOpen: (item: Item) => void; 
+interface Props {
+  handleModalOpen: (item: Item) => void;
   item: Item;
 }
 
-const Card = (props: Props) => {
+const Card = (props: Props): JSX.Element => {
   const { item, handleModalOpen } = props;
 
   const handleOpen = () => {

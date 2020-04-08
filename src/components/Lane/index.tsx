@@ -1,30 +1,30 @@
-import React from "react";
-import CardForm from "components/CardForm";
-import Card, { Item} from "components/Card";
-import Modal from "components/Modal";
+import React from 'react';
+import CardForm from 'components/CardForm';
+import Card, { Item } from 'components/Card';
+import Modal from 'components/Modal';
 
-import { db } from "../../firebase";
-import { renderTitle } from "./laneUtils";
-import styles from "./lane.module.css";
+import { db } from '../../firebase';
+import { renderTitle } from './laneUtils';
+import styles from './lane.module.css';
 
-type Props = {
+interface Props {
   type: string;
-  data: Array<Item>;
+  data: Item[];
 }
 
-const Lane = (props: Props) => {
+const Lane = (props: Props): JSX.Element => {
   const [open, setOpen] = React.useState(false);
   const [modalData, setModalData] = React.useState(null);
 
   const { type, data } = props;
-  const dbRef = db.ref("/board");
+  const dbRef = db.ref('/board');
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: string): void => {
     dbRef.child(id).remove();
     handleModalClose();
   };
 
-  const renderTasks = () => {
+  const renderTasks = (): JSX.Element[] => {
     return data.map((item: Item) => (
       <Card key={item.id} item={item} handleModalOpen={handleModalOpen} />
     ));
@@ -36,12 +36,12 @@ const Lane = (props: Props) => {
     setModalData(item);
   };
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     setOpen(false);
     setModalData(null);
   };
 
-  const renderModal = () => {
+  const renderModal = (): JSX.Element => {
     return (
       <Modal
         open={open}

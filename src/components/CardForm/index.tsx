@@ -1,26 +1,26 @@
-import React, { FormEvent } from "react";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
+import React, { FormEvent } from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
 
-import styles from "./card-form.module.css";
+import styles from './card-form.module.css';
 
-type Props = {
+interface Props {
   dbRef: any;
-  type: String;
+  type: string;
 }
 
-const CardForm = (props: Props) => {
+const CardForm = (props: Props): JSX.Element => {
   const { dbRef, type } = props;
 
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (value !== "") {
+    if (value !== '') {
       dbRef.push().set({ title: value, type });
-      setValue("");
+      setValue('');
       setError(false);
     } else {
       setError(true);
@@ -35,11 +35,11 @@ const CardForm = (props: Props) => {
   return (
     <form onSubmit={handleSubmit} className={styles.container}>
       <TextField
-        label="New Task"
+        label='New Task'
         onChange={handleChange}
         value={value}
         error={error}
-        placeholder="Feed the dog"
+        placeholder='Feed the dog'
       />
       <AddIcon onClick={handleSubmit} className={styles.icon} />
     </form>
