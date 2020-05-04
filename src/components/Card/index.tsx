@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import styles from './card.module.css';
+import styles from "./card.module.css";
 
 export interface Item {
   id: string;

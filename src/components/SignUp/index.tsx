@@ -1,9 +1,9 @@
-import React from 'react';
-import { auth } from '../../firebase';
+import React from "react";
+import { auth } from "../../firebase";
 
 const SignUp = (): JSX.Element => {
-  const [email, setEmail] = React.useState<string>('');
-  const [password, setPassword] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
 
   const handleSubmit = (
     e: React.FormEvent<HTMLButtonElement | HTMLFormElement>
@@ -25,10 +25,10 @@ const SignUp = (): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name='email' type='text' value={email} onChange={handleEmail} />
+      <input name="email" type="text" value={email} onChange={handleEmail} />
       <input
-        name='password'
-        type='password'
+        name="password"
+        type="password"
         value={password}
         onChange={handlePassword}
       />

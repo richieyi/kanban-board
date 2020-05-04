@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { db } from '../../firebase';
-import { LANE_TYPE } from 'utils/enums';
-import { Item } from 'components/Card';
-import Lane from 'components/Lane';
-import styles from './board.module.css';
+import { db } from "../../firebase";
+import { LANE_TYPE } from "utils/enums";
+import { Item } from "components/Card";
+import Lane from "components/Lane";
+import styles from "./board.module.css";
 
 const Board = (): JSX.Element => {
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -12,7 +12,7 @@ const Board = (): JSX.Element => {
   const dbRef = db.ref(`/board`);
 
   React.useEffect(() => {
-    dbRef.on('value', (snapshot) => {
+    dbRef.on("value", (snapshot) => {
       setLoading(false);
       setData(snapshot.val());
     });

@@ -1,14 +1,14 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import MuiModal from '@material-ui/core/Modal';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import MoveIcon from '@material-ui/icons/TrendingFlat';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import MuiModal from "@material-ui/core/Modal";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import MoveIcon from "@material-ui/icons/TrendingFlat";
 
-import { LANE_TYPE } from 'utils/enums';
+import { LANE_TYPE } from "utils/enums";
 
-import styles from './modal.module.css';
+import styles from "./modal.module.css";
 
 const getModalStyle = (): any => {
   return {
@@ -20,7 +20,7 @@ const getModalStyle = (): any => {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 400,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -51,7 +51,7 @@ const Modal = (props: Props): JSX.Element => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    if (title === '') {
+    if (title === "") {
       setError(true);
     } else {
       dbRef.child(data.id).update({ title });
@@ -67,11 +67,11 @@ const Modal = (props: Props): JSX.Element => {
   const renderInput = () => (
     <form onSubmit={handleSubmit} className={styles.container}>
       <TextField
-        label='Update Task'
+        label="Update Task"
         onChange={handleChange}
         value={title}
         error={error}
-        placeholder='Feed the dog'
+        placeholder="Feed the dog"
       />
     </form>
   );
@@ -87,8 +87,8 @@ const Modal = (props: Props): JSX.Element => {
       case LANE_TYPE.TO_DO:
         button = (
           <Button
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             startIcon={<MoveIcon />}
             onClick={() => handleMove(LANE_TYPE.IN_PROGRESS)}
           >
@@ -99,8 +99,8 @@ const Modal = (props: Props): JSX.Element => {
       case LANE_TYPE.IN_PROGRESS:
         button = (
           <Button
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             startIcon={<MoveIcon />}
             onClick={() => handleMove(LANE_TYPE.DONE)}
           >
@@ -122,8 +122,8 @@ const Modal = (props: Props): JSX.Element => {
         <div className={styles.actionButtons}>
           {renderNextAction()}
           <Button
-            variant='contained'
-            color='secondary'
+            variant="contained"
+            color="secondary"
             startIcon={<DeleteIcon />}
             onClick={handleRemove}
           >

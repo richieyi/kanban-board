@@ -1,11 +1,11 @@
-import React from 'react';
-import CardForm from 'components/CardForm';
-import Card, { Item } from 'components/Card';
-import Modal from 'components/Modal';
+import React from "react";
+import CardForm from "components/CardForm";
+import Card, { Item } from "components/Card";
+import Modal from "components/Modal";
 
-import { db } from '../../firebase';
-import { renderTitle } from './laneUtils';
-import styles from './lane.module.css';
+import { db } from "../../firebase";
+import { renderTitle } from "./laneUtils";
+import styles from "./lane.module.css";
 
 interface Props {
   type: string;
@@ -17,7 +17,7 @@ const Lane = (props: Props): JSX.Element => {
   const [modalData, setModalData] = React.useState<Item | null>(null);
 
   const { type, data } = props;
-  const dbRef = db.ref('/board');
+  const dbRef = db.ref("/board");
 
   const handleRemove = (id: string): void => {
     dbRef.child(id).remove();
