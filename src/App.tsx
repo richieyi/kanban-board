@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { auth } from './firebase';
 
-import LogIn from './components/LogIn';
-import SignUp from './components/SignUp';
+import LogIn from './pages/LogIn';
+import SignUp from './pages/SignUp';
+import Home from './pages/Home';
 // import Board from './components/Board';
-import './App.css';
 
 const App = (): JSX.Element => {
   const [user, setUser] = React.useState<any>(null);
@@ -19,55 +19,44 @@ const App = (): JSX.Element => {
   }, []);
 
   const handleLogout = (): void => {
-    auth.signOut();
+    auth.signOut().then(() => setUser(null));
   };
-
-  console.log('here', user);
 
   return (
     <Router>
       <div>
         <nav>
+          {user && <button onClick={handleLogout}>Log Out</button>}
           <ul>
-            {/* <li>
+            <li>
               <Link to="/">Home</Link>
-            </li> */}
-            {user && (
+            </li>
+            {!user && (
               <li>
-                <button onClick={handleLogout}>Log Out</button>
+                <Link to="/sign-up">Sign Up</Link>
               </li>
             )}
             {!user && (
               <li>
-                <Link to="/register">Sign Up</Link>
-              </li>
-            )}
-            {!user && (
-              <li>
-                <Link to="/sign-in">Log In</Link>
+                <Link to="/log-in">Log In</Link>
               </li>
             )}
           </ul>
         </nav>
         <Switch>
-          <Route path="/register">
+          <Route path="/sign-up">
             <SignUp />
           </Route>
-          <Route path="/sign-in">
+          <Route path="/log-in">
             <LogIn />
           </Route>
-          {/* <Route path="/">
+          <Route path="/">
             <Home />
-          </Route> */}
+          </Route>
         </Switch>
       </div>
     </Router>
   );
 };
-// <div className="App">
-//   <LogIn />
-//   <SignUp />
-//   <Board />
-// </div>
 
 export default App;
