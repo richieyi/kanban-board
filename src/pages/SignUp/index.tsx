@@ -1,9 +1,9 @@
-import React from "react";
-import { auth } from "../../firebase";
+import React from 'react';
+import { auth } from '../../firebase';
 
 const SignUp = (): JSX.Element => {
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
 
   const handleSubmit = (
     e: React.FormEvent<HTMLButtonElement | HTMLFormElement>

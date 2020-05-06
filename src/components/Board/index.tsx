@@ -1,18 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import { db } from "../../firebase";
-import { LANE_TYPE } from "utils/enums";
-import { Item } from "components/Card";
-import Lane from "components/Lane";
-import styles from "./board.module.css";
+import { db } from '../../firebase';
+import { LANE_TYPE } from 'utils/enums';
+import { Item } from 'components/Card';
+import Lane from 'components/Lane';
+import styles from './board.module.css';
 
-const Board = (): JSX.Element => {
+interface Props {
+  user: any;
+}
+
+const Board = (props: Props): JSX.Element => {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [data, setData] = React.useState<any>({});
-  const dbRef = db.ref(`/board`);
+  const { user } = props;
+  const dbRef = db.ref(`/boards/${user.uid}`);
 
   React.useEffect(() => {
-    dbRef.on("value", (snapshot) => {
+    dbRef.on('value', (snapshot) => {
       setLoading(false);
       setData(snapshot.val());
     });
@@ -33,12 +38,21 @@ const Board = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
-      <Lane type={LANE_TYPE.TO_DO} data={filterData(LANE_TYPE.TO_DO)} />
       <Lane
+        dbRef={dbRef}
+        type={LANE_TYPE.TO_DO}
+        data={filterData(LANE_TYPE.TO_DO)}
+      />
+      <Lane
+        dbRef={dbRef}
         type={LANE_TYPE.IN_PROGRESS}
         data={filterData(LANE_TYPE.IN_PROGRESS)}
       />
-      <Lane type={LANE_TYPE.DONE} data={filterData(LANE_TYPE.DONE)} />
+      <Lane
+        dbRef={dbRef}
+        type={LANE_TYPE.DONE}
+        data={filterData(LANE_TYPE.DONE)}
+      />
     </div>
   );
 };

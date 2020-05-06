@@ -5,7 +5,7 @@ import { auth } from './firebase';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
-// import Board from './components/Board';
+import Board from './components/Board';
 
 const App = (): JSX.Element => {
   const [user, setUser] = React.useState<any>(null);
@@ -13,6 +13,7 @@ const App = (): JSX.Element => {
   React.useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         setUser(user);
       }
     });
@@ -21,6 +22,8 @@ const App = (): JSX.Element => {
   const handleLogout = (): void => {
     auth.signOut().then(() => setUser(null));
   };
+
+  // if (!user) return <div />;
 
   return (
     <Router>
@@ -50,9 +53,7 @@ const App = (): JSX.Element => {
           <Route path="/log-in">
             <LogIn />
           </Route>
-          <Route path="/">
-            <Home />
-          </Route>
+          <Route path="/">{user ? <Board user={user} /> : <div />}</Route>
         </Switch>
       </div>
     </Router>
