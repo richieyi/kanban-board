@@ -1,31 +1,31 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import MuiModal from "@material-ui/core/Modal";
-import DeleteIcon from "@material-ui/icons/Delete";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import MoveIcon from "@material-ui/icons/TrendingFlat";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import MuiModal from '@material-ui/core/Modal';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MoveIcon from '@material-ui/icons/TrendingFlat';
 
-import { LANE_TYPE } from "utils/enums";
+import { LANE_TYPE } from 'utils/enums';
 
-import styles from "./modal.module.css";
+import styles from './modal.module.css';
 
 const getModalStyle = (): any => {
   return {
     top: `50%`,
     left: `50%`,
-    transform: `translate(-50%, -50%)`,
+    transform: `translate(-50%, -50%)`
   };
 };
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    position: "absolute",
+    position: 'absolute',
     width: 400,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+    padding: theme.spacing(2, 4, 3)
+  }
 }));
 
 interface Props {
@@ -51,7 +51,7 @@ const Modal = (props: Props): JSX.Element => {
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    if (title === "") {
+    if (title === '') {
       setError(true);
     } else {
       dbRef.child(data.id).update({ title });
