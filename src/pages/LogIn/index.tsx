@@ -1,11 +1,11 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
 
-const LogIn = (props: any): JSX.Element => {
+const LogIn = (): JSX.Element => {
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
-
   const history = useHistory();
 
   const handleSubmit = (

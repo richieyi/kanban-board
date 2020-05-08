@@ -1,0 +1,34 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+.navList {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navList li {
+    margin: 0 5px;
+}
+
+.navList li a {
+    text-decoration: none;
+    color: white;
+}
+
+.navList li a:hover,
+.logoutButton:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logoutButton {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
