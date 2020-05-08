@@ -36,6 +36,7 @@ const LogIn = (): JSX.Element => {
       handleEmail={handleEmail}
       password={password}
       handlePassword={handlePassword}
+      buttonText="Log In"
     />
   );
 };

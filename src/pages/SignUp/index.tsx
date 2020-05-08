@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase';
+import EmailPasswordForm from "../../components/EmailPasswordForm";
 
 const SignUp = (): JSX.Element => {
   const [email, setEmail] = React.useState<string>('');
@@ -29,16 +30,14 @@ const SignUp = (): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="email" type="text" value={email} onChange={handleEmail} />
-      <input
-        name="password"
-        type="password"
-        value={password}
-        onChange={handlePassword}
-      />
-      <button onClick={handleSubmit}>Sign Up</button>
-    </form>
+    <EmailPasswordForm
+      handleSubmit={handleSubmit}
+      email={email}
+      handleEmail={handleEmail}
+      password={password}
+      handlePassword={handlePassword}
+      buttonText="Sign Up"
+    />
   );
 };
 
