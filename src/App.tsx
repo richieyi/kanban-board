@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { auth } from './firebase';
 
+import Nav from './components/Nav';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
@@ -29,24 +30,7 @@ const App = (): JSX.Element => {
   return (
     <Router>
       <div>
-        <nav>
-          {user && <button onClick={handleLogout}>Log Out</button>}
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            {!user && (
-              <li>
-                <Link to="/sign-up">Sign Up</Link>
-              </li>
-            )}
-            {!user && (
-              <li>
-                <Link to="/log-in">Log In</Link>
-              </li>
-            )}
-          </ul>
-        </nav>
+        <Nav user={user} handleLogout={handleLogout} />
         <Switch>
           <Route path="/sign-up">
             <SignUp />
