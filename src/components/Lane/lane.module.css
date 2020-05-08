@@ -14,5 +14,6 @@
 .title h3 {
   margin: 10px 5px;
   font-size: 16px;
-  color: #112d4e;
+  /* color: #112d4e; */
+  color: white;
 }
